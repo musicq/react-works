@@ -7,7 +7,17 @@
     "build": "tsc -b && vite build",
     "lint": "eslint .",
     "test": "vitest",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "prepublish": "pnpm run build"
+  },
+  "main": "./dist/rworks.umd.cjs",
+  "module": "./dist/reworks.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "require": "./dist/reworks.unm.cjs",
+      "import": "./dist/reworks.js"
+    }
   },
   "dependencies": {
     "react": "^18.3.1",
@@ -28,6 +38,7 @@
     "typescript": "~5.6.2",
     "typescript-eslint": "^8.15.0",
     "vite": "^6.0.1",
+    "vite-plugin-dts": "^4.3.0",
     "vitest": "^2.1.8"
   }
 }

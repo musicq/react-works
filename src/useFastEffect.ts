@@ -1,41 +1,41 @@
-import type { DependencyList } from "react";
-import { useRef } from "react";
+import type {DependencyList} from 'react'
+import {useRef} from 'react'
 
 export function useFastEffect(fn: () => void, deps?: DependencyList) {
-  const shouldRun = useShouldRunEffect(deps);
+  const shouldRun = useShouldRunEffect(deps)
 
   if (shouldRun) {
-    fn();
+    fn()
   }
 }
 
 function useShouldRunEffect(deps?: DependencyList): boolean {
-  const firstRenderRef = useRef(true);
-  const lastDeps = useRef<unknown[]>([]);
+  const firstRenderRef = useRef(true)
+  const lastDeps = useRef<unknown[]>([])
 
   // always run
   if (!deps) {
-    return true;
+    return true
   }
 
   // run once
   if (deps.length === 0) {
     if (firstRenderRef.current) {
-      firstRenderRef.current = false;
-      return true;
+      firstRenderRef.current = false
+      return true
     }
 
-    return false;
+    return false
   }
 
-  let shouldRun = false;
+  let shouldRun = false
   for (let i = 0; i < deps.length; i++) {
     if (lastDeps.current[i] !== deps[i]) {
-      shouldRun = true;
+      shouldRun = true
     }
 
-    lastDeps.current[i] = deps[i];
+    lastDeps.current[i] = deps[i]
   }
 
-  return shouldRun;
+  return shouldRun
 }
